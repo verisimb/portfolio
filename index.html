@@ -10,7 +10,7 @@
     <!-- Navbar start -->
     <nav class="fixed w-full z-50 top-0">
         <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
-            <div class="flex items-center h-16 mt-6 mx-4 px-8">
+            <div class="relative flex items-center h-16 mt-6 mx-4 px-8">
                 <!-- Logo/Brand untuk mobile -->
                 <div class="flex items-center md:hidden w-full justify-center">
                     <a href="#" class="hover:opacity-80 transition duration-300">
@@ -29,20 +29,20 @@
                     
                     <!-- Menu di tengah -->
                     <div class="flex items-center space-x-2 absolute left-1/2 transform -translate-x-1/2">
-                    <a href="#home" class="px-5 py-2.5 text-gray-700 hover:text-white bg-white/20 backdrop-blur-md hover:bg-[#6C1022] transition-all duration-300 font-medium rounded-full border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">Home</a>
-                    <a href="#about" class="px-5 py-2.5 text-gray-700 hover:text-white bg-white/20 backdrop-blur-md hover:bg-[#6C1022] transition-all duration-300 font-medium rounded-full border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">About</a>
-                    <a href="#projects" class="px-5 py-2.5 text-gray-700 hover:text-white bg-white/20 backdrop-blur-md hover:bg-[#6C1022] transition-all duration-300 font-medium rounded-full border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">Projects</a>
-                    <a href="#skills" class="px-5 py-2.5 text-gray-700 hover:text-white bg-white/20 backdrop-blur-md hover:bg-[#6C1022] transition-all duration-300 font-medium rounded-full border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">Skills</a>
-                    <a href="#contact" class="px-5 py-2.5 text-gray-700 hover:text-white bg-white/20 backdrop-blur-md hover:bg-[#6C1022] transition-all duration-300 font-medium rounded-full border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">Contact</a>
+                    <a href="#home" class="px-5 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] transition-all duration-300 font-medium rounded-full border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">Home</a>
+                    <a href="#about" class="px-5 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] transition-all duration-300 font-medium rounded-full border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">About</a>
+                    <a href="#projects" class="px-5 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] transition-all duration-300 font-medium rounded-full border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">Projects</a>
+                    <a href="#skills" class="px-5 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] transition-all duration-300 font-medium rounded-full border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">Skills</a>
+                    <a href="#contact" class="px-5 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] transition-all duration-300 font-medium rounded-full border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">Contact</a>
                     </div>
                     
                     <!-- Spacer untuk balance -->
                     <div class="w-24"></div>
                 </div>
                 
-                <!-- Mobile menu button -->
-                <div class="md:hidden absolute right-8 top-1/2 transform -translate-y-1/2">
-                    <button id="mobile-menu-button" class="text-gray-700 hover:text-[#6C1022] focus:outline-none focus:text-[#6C1022] transition duration-300">
+                <!-- Mobile menu button - Fixed position -->
+                <div class="md:hidden absolute right-0 top-1/2 transform -translate-y-1/2 z-10">
+                    <button id="mobile-menu-button" class="p-2 text-gray-700 hover:text-[#6C1022] focus:outline-none focus:text-[#6C1022] transition duration-300">
                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
@@ -51,13 +51,13 @@
             </div>
             
             <!-- Mobile Navigation Menu -->
-            <div id="mobile-menu" class="md:hidden hidden">
-                <div class="px-6 pt-4 pb-4 space-y-1 mt-2 mx-4">
-                    <a href="#home" class="block px-5 py-2.5 text-gray-700 hover:text-white bg-white/20 backdrop-blur-md hover:bg-[#6C1022] rounded-full transition-all duration-300 font-medium text-center border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">Home</a>
-                    <a href="#about" class="block px-5 py-2.5 text-gray-700 hover:text-white bg-white/20 backdrop-blur-md hover:bg-[#6C1022] rounded-full transition-all duration-300 font-medium text-center border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">About</a>
-                    <a href="#projects" class="block px-5 py-2.5 text-gray-700 hover:text-white bg-white/20 backdrop-blur-md hover:bg-[#6C1022] rounded-full transition-all duration-300 font-medium text-center border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">Projects</a>
-                    <a href="#skills" class="block px-5 py-2.5 text-gray-700 hover:text-white bg-white/20 backdrop-blur-md hover:bg-[#6C1022] rounded-full transition-all duration-300 font-medium text-center border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">Skills</a>
-                    <a href="#contact" class="block px-5 py-2.5 text-gray-700 hover:text-white bg-white/20 backdrop-blur-md hover:bg-[#6C1022] rounded-full transition-all duration-300 font-medium text-center border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">Contact</a>
+            <div id="mobile-menu" class="md:hidden hidden transform transition-all duration-300 ease-in-out">
+                <div class="px-6 pt-4 pb-6 space-y-2 mt-2 mx-4">
+                    <a href="#home" class="block px-5 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] rounded-full transition-all duration-300 font-medium text-center border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">Home</a>
+                    <a href="#about" class="block px-5 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] rounded-full transition-all duration-300 font-medium text-center border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">About</a>
+                    <a href="#projects" class="block px-5 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] rounded-full transition-all duration-300 font-medium text-center border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">Projects</a>
+                    <a href="#skills" class="block px-5 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] rounded-full transition-all duration-300 font-medium text-center border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">Skills</a>
+                    <a href="#contact" class="block px-5 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] rounded-full transition-all duration-300 font-medium text-center border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">Contact</a>
                 </div>
             </div>
         </div>
@@ -133,11 +133,11 @@
                         <div class="absolute -top-4 -right-4 w-20 h-20 bg-yellow-400 rounded-full animate-bounce shadow-lg flex items-center justify-center">
                             <span class="text-2xl">💻</span>
                         </div>
-                        <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-green-400 rounded-full animate-pulse shadow-lg flex items-center justify-center">
-                            <span class="text-xl">🚀</span>
+                        <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-[#F45905] rounded-full animate-pulse shadow-lg flex items-center justify-center">
+                            <span class="text-xl">📱</span>
                         </div>
-                        <div class="absolute top-1/2 -right-8 w-12 h-12 bg-purple-400 rounded-full animate-ping shadow-lg flex items-center justify-center">
-                            <span class="text-sm">⭐</span>
+                        <div class="absolute top-1/2 -right-8 w-12 h-12 bg-[#1E1E1E] rounded-full animate-pulse shadow-lg flex items-center justify-center">
+                            <img src="figma.svg" alt="Figma" class="w-6 h-6">
                         </div>
                     </div>
                 </div>
@@ -501,7 +501,7 @@
                         <!-- Figma -->
                         <div class="bg-white p-4 rounded-xl shadow-lg border border-gray-100 text-center hover:shadow-xl transition duration-300">
                             <div class="w-12 h-12 bg-[#6C1022]/10 rounded-lg flex items-center justify-center mx-auto mb-3">
-                                <span class="text-2xl font-bold text-[#6C1022]">F</span>
+                                <img src="figma.svg" alt="Figma" class="w-8 h-8">
                             </div>
                             <h4 class="font-semibold text-gray-900">Figma</h4>
                         </div>
