@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kalkulator BMI - Tugas JavaScript</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { 
+      background: white;
+      font-family: 'Poppins', sans-serif; 
+      padding: 0;
+      margin: 0;
+      min-height: 100vh;
+    }
+    
+    /* Navbar styling sama dengan portfolio - no background */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 15px 0;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 30px;
+      position: relative;
+      height: 64px;
+      margin-top: 24px;
+      margin-left: 16px;
+      margin-right: 16px;
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+    
+    .nav-logo img {
+      height: 40px;
+      width: auto;
+    }
+    
+    .nav-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50px;
+      color: black;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      backdrop-saturate: 150%;
+      white-space: nowrap;
+    }
+    
+    .nav-back:hover {
+      background: #6C1022;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(108, 16, 34, 0.3);
+      border-color: #6C1022;
+    }
+    
+    .container {
+      max-width: 450px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      margin-top: 80px;
+      margin-bottom: 30px;
+      border-radius: 16px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+    }
+    
+    h1 {
+      text-align: center;
+      color: #000000;
+      margin-bottom: 20px;
+      font-size: 1.6em;
+      font-weight: 700;
+    }
+    
+    h1 span {
+      color: #6C1022 !important;
+    }
+    
+    table { 
+      border-collapse: collapse; 
+      width: 100%;
+    }
+    
+    td { 
+      padding: 8px 10px; 
+      vertical-align: middle; 
+    }
+    
+    td:first-child {
+      font-weight: bold;
+      width: 140px;
+      text-align: left;
+      font-size: 15px;
+    }
+    
+    td:nth-child(2) {
+      width: 15px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 13px;
+    }
+    
+    td:nth-child(3) {
+      text-align: left;
+    }
+    
+    
+    hr { 
+      border: 0; 
+      border-top: 1px solid #ddd; 
+      margin: 20px 0;
+    }
+    
+    input[type="number"], input[type="text"] { 
+      padding: 8px 12px; 
+      width: 100%;
+      max-width: 200px;
+      border: 2px solid #e1e5e9;
+      border-radius: 50px;
+      font-size: 12px;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+    
+    input[type="number"]:focus, input[type="text"]:focus {
+      border-color: #6C1022;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(108, 16, 34, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    input[readonly] {
+      background-color: #f8f9fa;
+      border-color: #e9ecef;
+      cursor: not-allowed;
+    }
+    
+    button { 
+      padding: 12px 32px; 
+      cursor: pointer;
+      background: #6C1022;
+      color: white;
+      border: 2px solid transparent;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 500;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s;
+      margin: 4px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      transform: translateY(0);
+    }
+    
+    button:hover {
+      background: #5A0D1E;
+      transform: translateY(-1px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    /* Reset button style like "Hubungi Saya" */
+    button.reset-btn {
+      background: transparent !important;
+      color: #6C1022 !important;
+      border: 2px solid #6C1022 !important;
+      padding: 12px 32px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 500;
+      margin: 4px;
+    }
+    
+    button.reset-btn:hover {
+      background: #6C1022 !important;
+      color: white !important;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 25px rgba(108, 16, 34, 0.4);
+    }
+    
+    
+    .radio-group {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 0;
+      background: none;
+      border: none;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      color: #333;
+    }
+    
+    .radio-group label:hover {
+      color: #6C1022;
+    }
+    
+    .radio-group input[type="radio"] {
+      width: auto;
+      margin: 0;
+      accent-color: #6C1022;
+    }
+    
+    .result-box {
+      background: linear-gradient(135deg, rgba(108, 16, 34, 0.05), rgba(139, 21, 56, 0.05));
+      padding: 18px;
+      border-radius: 12px;
+      margin: 15px 0;
+      border: 2px solid rgba(108, 16, 34, 0.1);
+      box-shadow: 0 8px 20px rgba(108, 16, 34, 0.1);
+    }
+    
+    .result-box h4 {
+      color: #6C1022;
+      margin: 0 0 12px 0;
+      font-weight: 600;
+      font-size: 16px;
+    }
+    
+    .error {
+      color: #dc3545;
+      font-weight: 500;
+    }
+    
+    .success {
+      color: #28a745;
+      font-weight: 500;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-container {
+        padding: 0 20px;
+        flex-direction: column;
+        gap: 15px;
+        margin-left: 10px;
+        margin-right: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      
+      .nav-back {
+        font-size: 14px;
+        padding: 8px 16px;
+      }
+      
+      .container {
+        margin: 100px 12px 30px 12px;
+        padding: 18px 12px;
+        border-radius: 12px;
+      }
+      
+      h1 {
+        font-size: 1.4em;
+        margin-bottom: 15px;
+      }
+      
+      .radio-group {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .radio-group label {
+        justify-content: center;
+      }
+      
+      input[type="number"], input[type="text"] {
+        max-width: 100%;
+      }
+      
+      button {
+        width: 100%;
+        margin: 10px 0 5px 0;
+      }
+      
+      td:first-child {
+        width: 100px;
+        font-size: 12px;
+        padding: 6px 6px;
+      }
+      
+      td:nth-child(2) {
+        width: 12px;
+        padding: 6px 4px;
+      }
+      
+      td:nth-child(3) {
+        padding: 6px 8px;
+      }
+      
+      .result-box {
+        padding: 15px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .container {
+        margin: 120px 10px 25px 10px;
+        padding: 15px 10px;
+      }
+      
+      h1 {
+        font-size: 1.3em;
+      }
+      
+      table {
+        font-size: 12px;
+      }
+      
+      td {
+        padding: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <img src="../assets/images/logo.png" alt="Portfolio Logo">
+      </div>
+      <a href="../index.html" class="nav-back">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m12 19-7-7 7-7"></path>
+          <path d="M19 12H5"></path>
+        </svg>
+        Kembali ke Portfolio
+      </a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>Kalkulator <span style="color: #6C1022;">BMI</span></h1>
+    
+    <!-- Form Kalkulator BMI -->
+    <form action="#" method="post" onsubmit="return ValidasiForm()" name="FormBMI">
+      <table>
+        <tr>
+          <td>Nama Lengkap</td>
+          <td>:</td>
+          <td>
+            <input type="text" name="nama" placeholder="Masukkan nama Anda" />
+            <small id="err_nama" class="error"></small>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Umur</td>
+          <td>:</td>
+          <td>
+            <input type="number" name="umur" placeholder="Contoh: 25" />
+            <small id="err_umur" class="error"></small>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Jenis Kelamin</td>
+          <td>:</td>
+          <td>
+            <div class="radio-group">
+              <label><input type="radio" name="kelamin" value="Pria" onclick="updateKelamin()" checked /> Pria</label>
+              <label><input type="radio" name="kelamin" value="Wanita" onclick="updateKelamin()" /> Wanita</label>
+            </div>
+            <small id="err_kelamin" class="error"></small>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Status</td>
+          <td>:</td>
+          <td id="status_kelamin">Pria</td>
+        </tr>
+
+        <tr><td colspan="3"><hr/></td></tr>
+
+        <tr>
+          <td>Berat Badan (kg)</td>
+          <td>:</td>
+          <td>
+            <input type="number" name="berat" onkeyup="hitungBMI()" />
+            <small id="err_berat" class="error"></small>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Tinggi Badan (cm)</td>
+          <td>:</td>
+          <td>
+            <input type="number" name="tinggi" onkeyup="hitungBMI()" />
+            <small id="err_tinggi" class="error"></small>
+          </td>
+        </tr>
+
+        <tr><td colspan="3"><hr/></td></tr>
+
+        <tr>
+          <td>BMI Anda</td>
+          <td>:</td>
+          <td>
+            <input type="number" name="hasil_bmi" readonly />
+            <small id="err_hasil" class="error"></small>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Status BMI</td>
+          <td>:</td>
+          <td>
+            <input type="text" name="status_bmi" readonly />
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="3">
+            <div id="info_bmi" class="result-box" style="display: none;">
+              <h4 style="margin: 0 0 10px 0;">Informasi BMI Anda:</h4>
+              <p id="deskripsi_bmi"></p>
+              <p id="saran_bmi"></p>
+            </div>
+          </td>
+        </tr>
+
+        <tr><td colspan="3"><hr/></td></tr>
+
+        <tr>
+          <td colspan="3" style="text-align: center;">
+            <button type="submit">Simpan Data BMI</button>
+            <button type="button" class="reset-btn" onclick="resetForm()" style="margin-left: 10px;">Reset</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+
+  <script type="text/javascript">
+    function ValidasiForm() {
+      // Reset semua pesan error
+      document.getElementById("err_nama").innerHTML = "";
+      document.getElementById("err_umur").innerHTML = "";
+      document.getElementById("err_berat").innerHTML = "";
+      document.getElementById("err_tinggi").innerHTML = "";
+      document.getElementById("err_hasil").innerHTML = "";
+
+      // Validasi Nama
+      if (document.FormBMI.nama.value.trim() === "") {
+        document.getElementById("err_nama").innerHTML = "Nama harus diisi";
+        return false;
+      }
+
+      // Validasi Umur
+      var umur = parseFloat(document.FormBMI.umur.value);
+      if (isNaN(umur) || umur <= 0) {
+        document.getElementById("err_umur").innerHTML = "Umur harus diisi dengan angka";
+        return false;
+      }
+      if (umur < 10 || umur > 100) {
+        document.getElementById("err_umur").innerHTML = "Umur harus antara 10-100 tahun";
+        return false;
+      }
+
+      // Validasi Berat Badan
+      var berat = parseFloat(document.FormBMI.berat.value);
+      if (isNaN(berat) || berat <= 0) {
+        document.getElementById("err_berat").innerHTML = "Berat badan harus diisi dengan angka";
+        return false;
+      }
+      if (berat < 20 || berat > 300) {
+        document.getElementById("err_berat").innerHTML = "Berat badan harus antara 20-300 kg";
+        return false;
+      }
+
+      // Validasi Tinggi Badan
+      var tinggi = parseFloat(document.FormBMI.tinggi.value);
+      if (isNaN(tinggi) || tinggi <= 0) {
+        document.getElementById("err_tinggi").innerHTML = "Tinggi badan harus diisi dengan angka";
+        return false;
+      }
+      if (tinggi < 100 || tinggi > 250) {
+        document.getElementById("err_tinggi").innerHTML = "Tinggi badan harus antara 100-250 cm";
+        return false;
+      }
+
+      // Validasi BMI sudah dihitung
+      if (document.FormBMI.hasil_bmi.value === "" || isNaN(parseFloat(document.FormBMI.hasil_bmi.value))) {
+        document.getElementById("err_hasil").innerHTML = "BMI belum terhitung, silakan isi berat dan tinggi badan";
+        return false;
+      }
+
+      // Jika semua valid
+      alert("✅ Data BMI berhasil disimpan!\n\n" +
+            "Nama: " + document.FormBMI.nama.value + "\n" +
+            "BMI: " + document.FormBMI.hasil_bmi.value + "\n" +
+            "Status: " + document.FormBMI.status_bmi.value);
+      return true;
+    }
+
+    function updateKelamin() {
+      // Mengubah text status kelamin menggunakan DOM
+      var kelamin = document.FormBMI.kelamin.value;
+      document.getElementById("status_kelamin").innerHTML = kelamin;
+      
+      // Hitung ulang BMI untuk update informasi
+      hitungBMI();
+    }
+
+    function hitungBMI() {
+      // Ambil nilai berat dan tinggi
+      var berat = parseFloat(document.FormBMI.berat.value);
+      var tinggi = parseFloat(document.FormBMI.tinggi.value);
+
+      // Reset error dan sembunyikan info
+      document.getElementById("err_hasil").innerHTML = "";
+      document.getElementById("info_bmi").style.display = "none";
+
+      // Jika ada yang kosong atau bukan angka, kosongkan hasil
+      if (isNaN(berat) || isNaN(tinggi) || berat <= 0 || tinggi <= 0) {
+        document.FormBMI.hasil_bmi.value = "";
+        document.FormBMI.status_bmi.value = "";
+        return;
+      }
+
+      // Hitung BMI
+      // Rumus: BMI = berat (kg) / (tinggi (m))²
+      var tinggiMeter = tinggi / 100; // konversi cm ke meter
+      var bmi = berat / (tinggiMeter * tinggiMeter);
+
+      // Tampilkan hasil BMI (2 angka di belakang koma)
+      document.FormBMI.hasil_bmi.value = bmi.toFixed(1);
+
+      // Tentukan status BMI
+      var status = "";
+      var deskripsi = "";
+      var saran = "";
+
+      if (bmi < 18.5) {
+        status = "Kurus";
+        deskripsi = "BMI Anda menunjukkan berat badan kurang dari normal.";
+        saran = "Saran: Perbanyak makan makanan bergizi dan konsultasi dengan dokter.";
+      } else if (bmi >= 18.5 && bmi < 25) {
+        status = "Normal";
+        deskripsi = "Selamat! BMI Anda dalam kategori normal dan sehat.";
+        saran = "Saran: Pertahankan pola makan sehat dan olahraga teratur.";
+      } else if (bmi >= 25 && bmi < 30) {
+        status = "Gemuk";
+        deskripsi = "BMI Anda menunjukkan berat badan berlebih.";
+        saran = "Saran: Kurangi porsi makan dan tingkatkan aktivitas fisik.";
+      } else {
+        status = "Obesitas";
+        deskripsi = "BMI Anda menunjukkan obesitas yang perlu perhatian serius.";
+        saran = "Saran: Segera konsultasi dengan dokter untuk program penurunan berat badan.";
+      }
+
+      // Tampilkan status BMI
+      document.FormBMI.status_bmi.value = status;
+
+      // Tampilkan informasi detail
+      document.getElementById("deskripsi_bmi").innerHTML = deskripsi;
+      document.getElementById("saran_bmi").innerHTML = saran;
+      document.getElementById("info_bmi").style.display = "block";
+    }
+
+    function resetForm() {
+      if (confirm("Apakah Anda yakin ingin menghapus semua data?")) {
+        document.FormBMI.reset();
+        
+        // Reset pesan error
+        document.getElementById("err_nama").innerHTML = "";
+        document.getElementById("err_umur").innerHTML = "";
+        document.getElementById("err_berat").innerHTML = "";
+        document.getElementById("err_tinggi").innerHTML = "";
+        document.getElementById("err_hasil").innerHTML = "";
+        
+        // Reset status dan sembunyikan info
+        document.getElementById("status_kelamin").innerHTML = "Pria";
+        document.getElementById("info_bmi").style.display = "none";
+      }
+    }
+
+    // Set nilai awal saat halaman dimuat
+    window.addEventListener('DOMContentLoaded', function() {
+      updateKelamin();
+    });
+  </script>
+
+</body>
+</html>
