@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kalkulator Luas - Tugas JavaScript</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="../src/output.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <style>
+    body { 
+      background: white;
+      font-family: 'Poppins', sans-serif; 
+      padding: 0;
+      margin: 0;
+      min-height: 100vh;
+    }
+    
+    
+    .container {
+      max-width: 450px;
+      margin: 0 auto;
+      background: white;
+      padding: 35px;
+      border-radius: 14px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+      width: 80%;
+    }
+    
+    h1 {
+      text-align: center;
+      color: #000000;
+      margin-bottom: 20px;
+      font-size: 1.6em;
+      font-weight: 700;
+    }
+    
+    h1 span {
+      color: #6C1022 !important;
+    }
+    
+    .form-group {
+      margin-bottom: 18px;
+    }
+    
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 7px;
+      font-size: 14px;
+      color: #333;
+    }
+    
+    
+    /* Custom utilities for calculator */
+    .hidden {
+      display: none;
+    }
+    
+    .space-y-4 > * + * {
+      margin-top: 1rem;
+    }
+    
+    .mt-6 {
+      margin-top: 1.5rem;
+    }
+    
+    .p-4 {
+      padding: 1rem;
+    }
+    
+    .mb-2 {
+      margin-bottom: 0.5rem;
+    }
+    
+    .bg-green-50 {
+      background-color: rgba(108, 16, 34, 0.1);
+    }
+    
+    .bg-red-50 {
+      background-color: #fef2f2;
+    }
+    
+    .border-green-200 {
+      border-color: rgba(108, 16, 34, 0.3);
+    }
+    
+    .border-red-200 {
+      border-color: #fecaca;
+    }
+    
+    .text-green-700 {
+      color: #6C1022;
+    }
+    
+    .text-red-700 {
+      color: #b91c1c;
+    }
+
+    /* Essential navbar styling not in Tailwind */
+    .bg-white\/20 {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .backdrop-blur {
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .backdrop-saturate-150 {
+      backdrop-filter: saturate(1.5);
+      -webkit-backdrop-filter: saturate(1.5);
+    }
+
+    .border-white\/30 {
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .hover\:border-\[\#6C1022\]:hover {
+      border-color: #6C1022;
+    }
+
+    .hover\:bg-\[\#6C1022\]:hover {
+      background-color: #6C1022;
+    }
+
+    .hover\:text-\[\#6C1022\]:hover {
+      color: #6C1022;
+    }
+
+    .focus\:text-\[\#6C1022\]:focus {
+      color: #6C1022;
+    }
+    
+    
+    input[type="number"], input[type="text"], select { 
+      padding: 10px 16px; 
+      width: 100%;
+      max-width: 100%;
+      border: 2px solid #e1e5e9;
+      border-radius: 50px;
+      font-size: 14px;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+      background: white;
+    }
+    
+    input[type="number"]:focus, input[type="text"]:focus, select:focus {
+      border-color: #6C1022;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(108, 16, 34, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    
+    button { 
+      padding: 10px 30px; 
+      cursor: pointer;
+      background: #6C1022;
+      color: white;
+      border: 2px solid transparent;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 500;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s;
+      margin: 18px auto 4px auto;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      transform: translateY(0);
+      display: block;
+      min-width: 160px;
+    }
+    
+    button:hover {
+      background: #5A0D1E;
+      transform: translateY(-1px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      
+      .container {
+        margin: 0 15px;
+        padding: 25px 20px;
+        border-radius: 10px;
+        max-width: 85%;
+        width: 85%;
+      }
+      
+      h1 {
+        font-size: 1.4em;
+        margin-bottom: 15px;
+      }
+      
+      input[type="number"], input[type="text"] {
+        max-width: 100%;
+      }
+      
+      button {
+        width: 100%;
+        margin: 10px 0 5px 0;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .container {
+        margin: 0 10px;
+        padding: 20px 18px;
+        max-width: 90%;
+        width: 90%;
+      }
+      
+      h1 {
+        font-size: 1.3em;
+      }
+    }
+  </style>
+</head>
+<body class="font-sans">
+
+    <!-- Navbar start -->
+    <nav class="fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
+            <div class="relative flex items-center h-16 mt-6 mx-4 px-8">
+                <!-- Logo/Brand untuk mobile -->
+                <div class="flex items-center md:hidden w-full justify-center">
+                    <a href="../index.html" class="hover:opacity-80 transition duration-300">
+                        <img src="../assets/images/logo.png" alt="Portfolio Logo" class="h-8 w-auto">
+                    </a>
+      </div>
+                
+                <!-- Desktop Layout -->
+                <div class="hidden md:flex items-center justify-between w-full">
+                    <!-- Logo Desktop -->
+                    <div class="flex items-center">
+                        <a href="../index.html" class="hover:opacity-80 transition duration-300">
+                            <img src="../assets/images/logo.png" alt="Portfolio Logo" class="h-10 w-auto">
+                        </a>
+                    </div>
+                    
+                    <!-- Menu di tengah -->
+                    <div class="flex items-center space-x-1 absolute left-1/2 transform -translate-x-1/2">
+                    <a href="../index.html#home" class="px-4 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] transition-all duration-300 font-medium rounded-full border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150 whitespace-nowrap">Home</a>
+                    <a href="../index.html#about" class="px-4 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] transition-all duration-300 font-medium rounded-full border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150 whitespace-nowrap">About</a>
+                    <a href="../index.html#projects" class="px-4 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] transition-all duration-300 font-medium rounded-full border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150 whitespace-nowrap">Projects</a>
+                    <a href="../index.html#skills" class="px-4 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] transition-all duration-300 font-medium rounded-full border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150 whitespace-nowrap">Skills</a>
+                    <a href="../index.html#contact" class="px-4 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] transition-all duration-300 font-medium rounded-full border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150 whitespace-nowrap">Contact</a>
+                    <a href="tugas.html" class="px-4 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] transition-all duration-300 font-medium rounded-full border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150 whitespace-nowrap">Tugas JS</a>
+                    </div>
+                    
+                    <!-- Spacer untuk balance -->
+                    <div class="w-24"></div>
+                </div>
+                
+                <!-- Mobile menu button - Fixed position -->
+                <div class="md:hidden absolute right-0 top-1/2 transform -translate-y-1/2 z-10">
+                    <button id="mobile-menu-button" class="p-2 text-gray-700 hover:text-[#6C1022] focus:outline-none focus:text-[#6C1022] transition duration-300">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-menu" class="md:hidden hidden transform transition-all duration-300 ease-in-out">
+            <div class="px-6 pt-4 pb-6 space-y-2 mt-2 mx-4">
+                <a href="../index.html#home" class="block px-5 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] rounded-full transition-all duration-300 font-medium text-center border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">Home</a>
+                <a href="../index.html#about" class="block px-5 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] rounded-full transition-all duration-300 font-medium text-center border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">About</a>
+                <a href="../index.html#projects" class="block px-5 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] rounded-full transition-all duration-300 font-medium text-center border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">Projects</a>
+                <a href="../index.html#skills" class="block px-5 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] rounded-full transition-all duration-300 font-medium text-center border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">Skills</a>
+                <a href="../index.html#contact" class="block px-5 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] rounded-full transition-all duration-300 font-medium text-center border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150">Contact</a>
+                <a href="tugas.html" class="block px-5 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] rounded-full transition-all duration-300 font-medium text-center border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150 whitespace-nowrap">Tugas JS</a>
+            </div>
+            </div>
+    </div>
+  </nav>
+    <!-- Navbar end -->
+
+  <!-- Calculator section start -->
+  <section class="min-h-screen bg-white flex items-center justify-center">
+  <div class="container">
+    <h1>Kalkulator <span>Luas</span></h1>
+
+    <!-- Shape Selection -->
+    <div class="form-group">
+      <label for="shape-select">Pilih Bangun Datar</label>
+      <select id="shape-select">
+        <option value="persegi_panjang" selected>Persegi Panjang</option>
+        <option value="segitiga">Segitiga</option>
+      </select>
+    </div>
+
+    <!-- Input Fields Container -->
+    <div id="input-fields" class="space-y-4"></div>
+
+    <!-- Calculate Button -->
+    <button id="calculate-btn" disabled>Hitung Luas</button>
+
+    <!-- Result Display -->
+    <div
+      id="result"
+      class="hidden mt-6 p-4 bg-green-50 border border-green-200 rounded-lg"
+    >
+      <h3 class="text-lg font-semibold text-green-700 mb-2"></h3>
+      <p
+        id="result-text"
+        class="text-gray-800 text-xl font-bold text-center"
+      ></p>
+    </div>
+  </div>
+  </section>
+  <!-- Calculator section end -->
+
+  <script>
+    $(document).ready(function () {
+      // Mobile menu functionality
+      $("#mobile-menu-button").click(function() {
+          $("#mobile-menu").toggleClass("hidden");
+      });
+
+      // Close mobile menu when clicking on a link
+      $("#mobile-menu a").click(function() {
+          $("#mobile-menu").addClass("hidden");
+      });
+
+      // Calculator functionality
+
+      // Shape selection onchange event
+      $("#shape-select").change(function () {
+        const selectedShape = $(this).val();
+        const inputFields = $("#input-fields");
+        const calculateBtn = $("#calculate-btn");
+        const result = $("#result");
+
+        // Clear previous fields and results
+        inputFields.empty();
+        result.addClass("hidden");
+        calculateBtn.prop("disabled", true);
+
+        if (selectedShape === "persegi_panjang") {
+          // Add fields for persegi panjang (rectangle)
+          inputFields.html(`
+            <div class="form-group">
+              <label for="panjang">Panjang</label>
+              <input 
+                type="number" 
+                id="panjang" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white" 
+                placeholder="0"
+                min="0"
+                step="0.01"
+              />
+            </div>
+            <div class="form-group">
+              <label for="lebar">Lebar</label>
+              <input 
+                type="number" 
+                id="lebar" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white" 
+                placeholder="0"
+                min="0"
+                step="0.01"
+              />
+            </div>
+          `);
+          calculateBtn.prop("disabled", false);
+        } else if (selectedShape === "segitiga") {
+          // Add fields for segitiga (triangle)
+          inputFields.html(`
+            <div class="form-group">
+              <label for="alas">Alas</label>
+              <input 
+                type="number" 
+                id="alas" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white" 
+                placeholder="0"
+                min="0"
+                step="0.01"
+              />
+            </div>
+            <div class="form-group">
+              <label for="tinggi">Tinggi</label>
+              <input 
+                type="number" 
+                id="tinggi" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white" 
+                placeholder="0"
+                min="0"
+                step="0.01"
+              />
+            </div>
+          `);
+          calculateBtn.prop("disabled", false);
+        }
+      });
+
+      // Calculate button click event
+      $("#calculate-btn").click(function () {
+        const selectedShape = $("#shape-select").val();
+        let luas = 0;
+        let isValid = true;
+        let errorMsg = "";
+
+        if (selectedShape === "persegi_panjang") {
+          const panjang = parseFloat($("#panjang").val());
+          const lebar = parseFloat($("#lebar").val());
+
+          if (isNaN(panjang) || panjang <= 0) {
+            isValid = false;
+            errorMsg = "Masukkan nilai panjang yang valid (> 0)";
+          } else if (isNaN(lebar) || lebar <= 0) {
+            isValid = false;
+            errorMsg = "Masukkan nilai lebar yang valid (> 0)";
+          } else {
+            luas = panjang * lebar;
+            showResult(`Hasil: ${luas.toFixed(0)}`);
+          }
+        } else if (selectedShape === "segitiga") {
+          const alas = parseFloat($("#alas").val());
+          const tinggi = parseFloat($("#tinggi").val());
+
+          if (isNaN(alas) || alas <= 0) {
+            isValid = false;
+            errorMsg = "Masukkan nilai alas yang valid (> 0)";
+          } else if (isNaN(tinggi) || tinggi <= 0) {
+            isValid = false;
+            errorMsg = "Masukkan nilai tinggi yang valid (> 0)";
+          } else {
+            luas = 0.5 * alas * tinggi;
+            showResult(`Hasil: ${luas.toFixed(0)}`);
+          }
+        }
+
+        if (!isValid) {
+          showError(errorMsg);
+        }
+      });
+
+      // Function to show result
+      function showResult(resultText) {
+        $("#result")
+          .removeClass("hidden bg-red-50 border-red-200")
+          .addClass("bg-green-50 border-green-200");
+        $("#result h3")
+          .removeClass("text-red-700")
+          .addClass("text-green-700")
+          .text("");
+        $("#result-text").html(resultText);
+      }
+
+      // Function to show error
+      function showError(errorText) {
+        $("#result")
+          .removeClass("hidden bg-green-50 border-green-200")
+          .addClass("bg-red-50 border-red-200");
+        $("#result h3")
+          .removeClass("text-green-700")
+          .addClass("text-red-700")
+          .text("Error:");
+        $("#result-text").html(errorText);
+      }
+
+      // Allow Enter key to calculate
+      $(document).on("keypress", "input[type='number']", function (e) {
+        if (e.which === 13) {
+          // Enter key
+          $("#calculate-btn").click();
+        }
+      });
+
+      // Initialize with default shape when page loads
+      $("#shape-select").trigger('change');
+
+    });
+  </script>
+
+</body>
+</html>
