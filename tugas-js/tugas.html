@@ -55,9 +55,6 @@
     
     
     /* Custom utilities for calculator */
-    .hidden {
-      display: none;
-    }
     
     .space-y-4 > * + * {
       margin-top: 1rem;
@@ -99,40 +96,7 @@
       color: #b91c1c;
     }
 
-    /* Essential navbar styling not in Tailwind */
-    .bg-white\/20 {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .backdrop-blur {
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-
-    .backdrop-saturate-150 {
-      backdrop-filter: saturate(1.5);
-      -webkit-backdrop-filter: saturate(1.5);
-    }
-
-    .border-white\/30 {
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .hover\:border-\[\#6C1022\]:hover {
-      border-color: #6C1022;
-    }
-
-    .hover\:bg-\[\#6C1022\]:hover {
-      background-color: #6C1022;
-    }
-
-    .hover\:text-\[\#6C1022\]:hover {
-      color: #6C1022;
-    }
-
-    .focus\:text-\[\#6C1022\]:focus {
-      color: #6C1022;
-    }
+    /* (Removed custom navbar utilities to match Tailwind exactly) */
     
     
     input[type="number"], input[type="text"], select { 
@@ -156,7 +120,7 @@
     }
     
     
-    button { 
+    .container button { 
       padding: 10px 30px; 
       cursor: pointer;
       background: #6C1022;
@@ -174,13 +138,13 @@
       min-width: 160px;
     }
     
-    button:hover {
+    .container button:hover {
       background: #5A0D1E;
       transform: translateY(-1px);
       box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
     
-    button:disabled {
+    .container button:disabled {
       background: #ccc;
       cursor: not-allowed;
       transform: none;
@@ -239,7 +203,7 @@
                     <a href="../index.html" class="hover:opacity-80 transition duration-300">
                         <img src="../assets/images/logo.png" alt="Portfolio Logo" class="h-8 w-auto">
                     </a>
-      </div>
+                </div>
                 
                 <!-- Desktop Layout -->
                 <div class="hidden md:flex items-center justify-between w-full">
@@ -269,7 +233,7 @@
                     <button id="mobile-menu-button" class="p-2 text-gray-700 hover:text-[#6C1022] focus:outline-none focus:text-[#6C1022] transition duration-300">
                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
+                        </svg>
                     </button>
                 </div>
             </div>
@@ -285,12 +249,12 @@
                 <a href="tugas.html" class="block px-5 py-2.5 text-black hover:text-white bg-white/20 backdrop-blur hover:bg-[#6C1022] rounded-full transition-all duration-300 font-medium text-center border border-white/30 hover:border-[#6C1022] shadow-lg hover:shadow-xl backdrop-saturate-150 whitespace-nowrap">Tugas JS</a>
             </div>
             </div>
-    </div>
-  </nav>
+        </div>
+    </nav>
     <!-- Navbar end -->
 
   <!-- Calculator section start -->
-  <section class="min-h-screen bg-white flex items-center justify-center">
+  <section class="min-h-screen bg-white flex items-center justify-center pt-24">
   <div class="container">
     <h1>Kalkulator <span>Luas</span></h1>
 
@@ -326,16 +290,6 @@
 
   <script>
     $(document).ready(function () {
-      // Mobile menu functionality
-      $("#mobile-menu-button").click(function() {
-          $("#mobile-menu").toggleClass("hidden");
-      });
-
-      // Close mobile menu when clicking on a link
-      $("#mobile-menu a").click(function() {
-          $("#mobile-menu").addClass("hidden");
-      });
-
       // Calculator functionality
 
       // Shape selection onchange event
@@ -485,6 +439,25 @@
       $("#shape-select").trigger('change');
 
     });
+  </script>
+
+  <!-- JavaScript for mobile menu toggle (same behavior as portfolio) -->
+  <script>
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      const mobileLinks = mobileMenu.querySelectorAll('a');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+        });
+      });
+    }
   </script>
 
 </body>
